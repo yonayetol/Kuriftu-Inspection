@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Performance - Kuriftu Inspect</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3">Team Performance</h1>
+                <div>
+                    <button class="btn btn-outline-secondary me-2">
+                        <i class="fas fa-download me-2"></i>Export Report
+                    </button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+                        <i class="fas fa-plus me-2"></i>Add Member
+                    </button>
+                </div>
+            </div>
+
+            <!-- Performance Overview -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h6 class="card-title">Team Efficiency</h6>
+                            <h2 class="mb-0">87%</h2>
+                            <small>+5% from last month</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h6 class="card-title">Tasks Completed</h6>
+                            <h2 class="mb-0">342</h2>
+                            <small>Last 30 days</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <h6 class="card-title">Avg. Response Time</h6>
+                            <h2 class="mb-0">2.5h</h2>
+                            <small>-30min from last month</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-warning text-white">
+                        <div class="card-body">
+                            <h6 class="card-title">Active Members</h6>
+                            <h2 class="mb-0">12</h2>
+                            <small>Across 3 departments</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Members Table -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="card-title">Team Members</h5>
+                        <div class="d-flex gap-2">
+                            <select class="form-select">
+                                <option>All Departments</option>
+                                <option>Maintenance</option>
+                                <option>Housekeeping</option>
+                                <option>Security</option>
+                            </select>
+                            <select class="form-select">
+                                <option>Last 30 Days</option>
+                                <option>Last Week</option>
+                                <option>Last Quarter</option>
+                                <option>This Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Department</th>
+                                    <th>Tasks</th>
+                                    <th>Efficiency</th>
+                                    <th>Response Time</th>
+                                    <th>Rating</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=50&q=80" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover;">
+                                            <div>
+                                                <div class="fw-bold">John Doe</div>
+                                                <small class="text-muted">Senior Technician</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            Maintenance
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>45 Completed</div>
+                                        <small class="text-success">98% Success Rate</small>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="progress flex-grow-1" style="height: 5px;">
+                                                <div class="progress-bar bg-success" style="width: 95%"></div>
+                                            </div>
+                                            <span class="ms-2">95%</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            1.5h avg
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-warning">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1517832447246-5d669c43b286?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            <span class="badge bg-success">Active</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=50&q=80" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover;">
+                                            <div>
+                                                <div class="fw-bold">Jane Smith</div>
+                                                <small class="text-muted">Housekeeper</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            Housekeeping
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>38 Completed</div>
+                                        <small class="text-success">92% Success Rate</small>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="progress flex-grow-1" style="height: 5px;">
+                                                <div class="progress-bar bg-info" style="width: 88%"></div>
+                                            </div>
+                                            <span class="ms-2">88%</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            2.1h avg
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-warning">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1517832447246-5d669c43b286?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            <span class="badge bg-success">Active</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Charts -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-4">
+                                <img src="https://images.unsplash.com/photo-1589467242598-091833d8b866?auto=format&fit=crop&w=40&q=80" class="me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                <h5 class="card-title mb-0">Efficiency Trends</h5>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="efficiencyChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-4">
+                                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=40&q=80" class="me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                <h5 class="card-title mb-0">Department Performance</h5>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="departmentChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Member Modal -->
+    <div class="modal fade" id="addMemberModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Team Member</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Position</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Department</label>
+                            <select class="form-select">
+                                <option>Maintenance</option>
+                                <option>Housekeeping</option>
+                                <option>Security</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Add Member</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // Load header
+        fetch('components/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            });
+
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efficiency Trends Chart
+            new Chart(document.getElementById('efficiencyChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Team Efficiency',
+                        data: [82, 85, 83, 87, 88, 87],
+                        borderColor: '#0d6efd',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Department Performance Chart
+            new Chart(document.getElementById('departmentChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Maintenance', 'Housekeeping', 'Security'],
+                    datasets: [{
+                        label: 'Efficiency',
+                        data: [95, 88, 92],
+                        backgroundColor: [
+                            '#0d6efd',
+                            '#20c997',
+                            '#ffc107'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

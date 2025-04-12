@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks - Kuriftu Inspect</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Drag and Drop -->
+    <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/draggable.bundle.js"></script>
+    
+    <style>
+        body { padding-top: 56px; }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100vh;
+            z-index: 1000;
+            padding-top: 56px;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .task-column {
+            min-height: 600px;
+        }
+        .task-card {
+            cursor: move;
+            margin-bottom: 10px;
+            transition: transform 0.2s;
+        }
+        .task-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Header & Sidebar -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <!-- Page Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3">Tasks</h1>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+                    <i class="fas fa-plus me-2"></i>New Task
+                </button>
+            </div>
+
+            <!-- Tasks Board -->
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">To Do</h5>
+                            <span class="badge bg-primary">3</span>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="task-list">
+                                <div class="task-card">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Clean room 305</h6>
+                                            <small class="text-muted">Housekeeping</small>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <span class="badge bg-warning">Medium</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            <small class="text-muted">Due in 2 hours</small>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="task-card">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Fix leaking faucet</h6>
+                                            <small class="text-muted">Maintenance</small>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <span class="badge bg-danger">High</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            <small class="text-muted">Due now</small>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">In Progress</h5>
+                            <span class="badge bg-warning">4</span>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="task-list">
+                                <div class="task-card">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Pool maintenance</h6>
+                                            <small class="text-muted">Maintenance</small>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <span class="badge bg-info">Low</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            <small class="text-muted">Started 30 mins ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-outline-success">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="task-card">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Garden cleanup</h6>
+                                            <small class="text-muted">Groundskeeping</small>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <span class="badge bg-warning">Medium</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            <small class="text-muted">Started 1 hour ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-outline-success">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Completed</h5>
+                            <span class="badge bg-success">5</span>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="task-list">
+                                <div class="task-card">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Room inspection</h6>
+                                            <small class="text-muted">Housekeeping</small>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <span class="badge bg-info">Low</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            <small class="text-muted">Completed 1 hour ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="task-card">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">AC maintenance</h6>
+                                            <small class="text-muted">Maintenance</small>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <span class="badge bg-warning">Medium</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            <small class="text-muted">Completed 2 hours ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Backlog</h5>
+                            <span class="badge bg-secondary">2</span>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="task-list">
+                                <div class="task-card">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Paint touch-up</h6>
+                                            <small class="text-muted">Maintenance</small>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <span class="badge bg-info">Low</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            <small class="text-muted">Scheduled for tomorrow</small>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="task-card">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-shrink-0">
+                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Carpet cleaning</h6>
+                                            <small class="text-muted">Housekeeping</small>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <span class="badge bg-warning">Medium</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex align-items-center">
+                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
+                                            <small class="text-muted">Scheduled for next week</small>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Task Modal -->
+            <div class="modal fade" id="addTaskModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add New Task</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addTaskForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Task Title</label>
+                                    <input type="text" class="form-control" placeholder="Enter task title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Department</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select department</option>
+                                        <option>Maintenance</option>
+                                        <option>Housekeeping</option>
+                                        <option>Security</option>
+                                        <option>Groundskeeping</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Priority</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select priority</option>
+                                        <option value="high">High</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="low">Low</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Assigned To</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select team member</option>
+                                        <option>John Doe</option>
+                                        <option>Jane Smith</option>
+                                        <option>Mike Johnson</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Due Date</label>
+                                    <input type="datetime-local" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Description</label>
+                                    <textarea class="form-control" rows="3" placeholder="Add task description..."></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Attachments</label>
+                                    <input type="file" class="form-control" multiple>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="submitTask">Add Task</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Load header
+        fetch('components/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            });
+
+        // Initialize drag and drop
+        document.addEventListener('DOMContentLoaded', function() {
+            new Draggable.Sortable(document.querySelectorAll('.task-column .card-body'), {
+                draggable: '.task-card',
+                handle: '.task-card'
+            });
+        });
+    </script>
+</body>
+</html>
