@@ -14,15 +14,6 @@
     
     <style>
         body { padding-top: 56px; }
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 250px;
-            height: 100vh;
-            z-index: 1000;
-            padding-top: 56px;
-        }
         .main-content {
             margin-left: 250px;
             padding: 20px;
@@ -38,10 +29,30 @@
         .task-card {
             cursor: move;
             margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
             transition: transform 0.2s;
+            border-left: 4px solid transparent;
+            position: relative;
         }
         .task-card:hover {
             transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        .badge {
+            font-size: 0.75rem;
+        }
+        .task-card.high { border-left-color: #dc3545; }
+        .task-card.medium { border-left-color: #ffc107; }
+        .task-card.low { border-left-color: #17a2b8; }
+        .delete-icon {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #dc3545;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -69,66 +80,39 @@
                             <span class="badge bg-primary">3</span>
                         </div>
                         <div class="card-body p-0">
-                            <div class="task-list">
-                                <div class="task-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <h6 class="mb-1">Clean room 305</h6>
-                                            <small class="text-muted">Housekeeping</small>
-                                        </div>
-                                        <div class="flex-shrink-0">
-                                            <span class="badge bg-warning">Medium</span>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex align-items-center">
-                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
-                                            <small class="text-muted">Due in 2 hours</small>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-arrow-right"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="task-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
-                                        </div>
-                                        <div class="flex-grow-1">
+                            <div class="task-list" id="todo-list">
+                                <div class="task-card high">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
                                             <h6 class="mb-1">Fix leaking faucet</h6>
                                             <small class="text-muted">Maintenance</small>
                                         </div>
-                                        <div class="flex-shrink-0">
-                                            <span class="badge bg-danger">High</span>
-                                        </div>
+                                        <span class="badge bg-danger">High</span>
                                     </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex align-items-center">
-                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
-                                            <small class="text-muted">Due now</small>
+                                    <small class="text-muted">Due now</small>
+                                    <div class="delete-icon" onclick="deleteTask(this)"><i class="fas fa-trash"></i></div>
+                                </div>
+                                <div class="task-card medium">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="mb-1">Clean room 305</h6>
+                                            <small class="text-muted">Housekeeping</small>
                                         </div>
+                                        <span class="badge bg-warning">Medium</span>
                                     </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-arrow-right"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                    <small class="text-muted">Due in 2 hours</small>
+                                    <div class="delete-icon" onclick="deleteTask(this)"><i class="fas fa-trash"></i></div>
+                                </div>
+                                <div class="task-card low">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="mb-1">Paint touch-up</h6>
+                                            <small class="text-muted">Maintenance</small>
                                         </div>
+                                        <span class="badge bg-info">Low</span>
                                     </div>
+                                    <small class="text-muted">Scheduled for tomorrow</small>
+                                    <div class="delete-icon" onclick="deleteTask(this)"><i class="fas fa-trash"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -141,66 +125,28 @@
                             <span class="badge bg-warning">4</span>
                         </div>
                         <div class="card-body p-0">
-                            <div class="task-list">
-                                <div class="task-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
-                                        </div>
-                                        <div class="flex-grow-1">
+                            <div class="task-list" id="in-progress-list">
+                                <div class="task-card medium">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
                                             <h6 class="mb-1">Pool maintenance</h6>
                                             <small class="text-muted">Maintenance</small>
                                         </div>
-                                        <div class="flex-shrink-0">
-                                            <span class="badge bg-info">Low</span>
-                                        </div>
+                                        <span class="badge bg-warning">Medium</span>
                                     </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex align-items-center">
-                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
-                                            <small class="text-muted">Started 30 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-outline-success">
-                                                <i class="fas fa-check"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <small class="text-muted">Started 30 mins ago</small>
+                                    <div class="delete-icon" onclick="deleteTask(this)"><i class="fas fa-trash"></i></div>
                                 </div>
-                                <div class="task-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
-                                        </div>
-                                        <div class="flex-grow-1">
+                                <div class="task-card low">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
                                             <h6 class="mb-1">Garden cleanup</h6>
                                             <small class="text-muted">Groundskeeping</small>
                                         </div>
-                                        <div class="flex-shrink-0">
-                                            <span class="badge bg-warning">Medium</span>
-                                        </div>
+                                        <span class="badge bg-info">Low</span>
                                     </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex align-items-center">
-                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
-                                            <small class="text-muted">Started 1 hour ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-outline-success">
-                                                <i class="fas fa-check"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <small class="text-muted">Started 1 hour ago</small>
+                                    <div class="delete-icon" onclick="deleteTask(this)"><i class="fas fa-trash"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -213,60 +159,28 @@
                             <span class="badge bg-success">5</span>
                         </div>
                         <div class="card-body p-0">
-                            <div class="task-list">
-                                <div class="task-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
-                                        </div>
-                                        <div class="flex-grow-1">
+                            <div class="task-list" id="completed-list">
+                                <div class="task-card low">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
                                             <h6 class="mb-1">Room inspection</h6>
                                             <small class="text-muted">Housekeeping</small>
                                         </div>
-                                        <div class="flex-shrink-0">
-                                            <span class="badge bg-info">Low</span>
-                                        </div>
+                                        <span class="badge bg-info">Low</span>
                                     </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex align-items-center">
-                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
-                                            <small class="text-muted">Completed 1 hour ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-outline-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <small class="text-muted">Completed 1 hour ago</small>
+                                    <div class="delete-icon" onclick="deleteTask(this)"><i class="fas fa-trash"></i></div>
                                 </div>
-                                <div class="task-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
-                                        </div>
-                                        <div class="flex-grow-1">
+                                <div class="task-card medium">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
                                             <h6 class="mb-1">AC maintenance</h6>
                                             <small class="text-muted">Maintenance</small>
                                         </div>
-                                        <div class="flex-shrink-0">
-                                            <span class="badge bg-warning">Medium</span>
-                                        </div>
+                                        <span class="badge bg-warning">Medium</span>
                                     </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex align-items-center">
-                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
-                                            <small class="text-muted">Completed 2 hours ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-outline-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <small class="text-muted">Completed 2 hours ago</small>
+                                    <div class="delete-icon" onclick="deleteTask(this)"><i class="fas fa-trash"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -279,66 +193,28 @@
                             <span class="badge bg-secondary">2</span>
                         </div>
                         <div class="card-body p-0">
-                            <div class="task-list">
-                                <div class="task-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <h6 class="mb-1">Paint touch-up</h6>
-                                            <small class="text-muted">Maintenance</small>
-                                        </div>
-                                        <div class="flex-shrink-0">
-                                            <span class="badge bg-info">Low</span>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex align-items-center">
-                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
-                                            <small class="text-muted">Scheduled for tomorrow</small>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-arrow-right"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="task-card">
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0">
-                                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=40&q=80" class="rounded-circle me-2" style="width: 30px; height: 30px; object-fit: cover;">
-                                        </div>
-                                        <div class="flex-grow-1">
+                            <div class="task-list" id="backlog-list">
+                                <div class="task-card low">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
                                             <h6 class="mb-1">Carpet cleaning</h6>
                                             <small class="text-muted">Housekeeping</small>
                                         </div>
-                                        <div class="flex-shrink-0">
-                                            <span class="badge bg-warning">Medium</span>
-                                        </div>
+                                        <span class="badge bg-info">Low</span>
                                     </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex align-items-center">
-                                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=20&q=80" class="me-2" style="width: 20px; height: 20px; object-fit: cover;">
-                                            <small class="text-muted">Scheduled for next week</small>
+                                    <small class="text-muted">Scheduled for next week</small>
+                                    <div class="delete-icon" onclick="deleteTask(this)"><i class="fas fa-trash"></i></div>
+                                </div>
+                                <div class="task-card medium">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="mb-1">Fix front gate</h6>
+                                            <small class="text-muted">Maintenance</small>
                                         </div>
+                                        <span class="badge bg-warning">Medium</span>
                                     </div>
-                                    <div class="mt-2">
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-arrow-right"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <small class="text-muted">Scheduled for next month</small>
+                                    <div class="delete-icon" onclick="deleteTask(this)"><i class="fas fa-trash"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -396,10 +272,6 @@
                                     <label class="form-label">Description</label>
                                     <textarea class="form-control" rows="3" placeholder="Add task description..."></textarea>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Attachments</label>
-                                    <input type="file" class="form-control" multiple>
-                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -425,11 +297,47 @@
 
         // Initialize drag and drop
         document.addEventListener('DOMContentLoaded', function() {
-            new Draggable.Sortable(document.querySelectorAll('.task-column .card-body'), {
+            new Draggable.Sortable(document.querySelectorAll('.task-list'), {
                 draggable: '.task-card',
                 handle: '.task-card'
             });
         });
+
+        // Dynamic Task Addition
+        document.getElementById('submitTask').addEventListener('click', function() {
+            const title = document.querySelector('#addTaskForm input[type="text"]').value;
+            const department = document.querySelector('#addTaskForm select').value;
+            const priority = document.querySelector('#addTaskForm select:nth-of-type(2)').value;
+            const dueDate = document.querySelector('#addTaskForm input[type="datetime-local"]').value;
+
+            if (title && department && priority && dueDate) {
+                const priorityClass = priority === 'high' ? 'high' : priority === 'medium' ? 'medium' : 'low';
+                const taskCardHtml = `
+                    <div class="task-card ${priorityClass}">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="mb-1">${title}</h6>
+                                <small class="text-muted">${department}</small>
+                            </div>
+                            <span class="badge ${priorityClass === 'high' ? 'bg-danger' : priorityClass === 'medium' ? 'bg-warning' : 'bg-info'}">${priority.charAt(0).toUpperCase() + priority.slice(1)}</span>
+                        </div>
+                        <small class="text-muted">Due by ${new Date(dueDate).toLocaleString()}</small>
+                        <div class="delete-icon" onclick="deleteTask(this)"><i class="fas fa-trash"></i></div>
+                    </div>`;
+
+                document.getElementById('todo-list').insertAdjacentHTML('beforeend', taskCardHtml);
+                // Close the modal
+                bootstrap.Modal.getInstance(document.getElementById('addTaskModal')).hide();
+                // Reset the form
+                document.getElementById('addTaskForm').reset();
+            }
+        });
+
+        // Delete Task Function
+        function deleteTask(element) {
+            const taskCard = element.closest('.task-card');
+            taskCard.remove();
+        }
     </script>
 </body>
 </html>
